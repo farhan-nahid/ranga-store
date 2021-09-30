@@ -11,6 +11,8 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+/* search bar */
+
 .products__search__container {
   width: 100%;
   max-width: 570px;
@@ -62,6 +64,8 @@ body {
   font-family: inherit;
 }
 
+/* products */
+
 #all-products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -73,9 +77,11 @@ body {
   justify-content: center;
 }
 
+/* product card */
+
 .card {
   border: 1px solid gray;
-  min-height: 370px;
+  min-height: 420px;
   padding: 20px;
   background-color: #f8f7f5;
   border-radius: 10px;
@@ -89,15 +95,28 @@ body {
   box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
 }
 
+.flex-area {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.flex-area h6 {
+  font-weight: 600;
+  font-size: 15px;
+}
+
 #addToCart-btn {
   padding: 10px 15px;
   color: #fff;
   font-family: inherit;
   font-weight: 600;
   border-radius: 6px;
-  background-color: #28a745;
+  background-color: #007bff;
+  transition: all 0.5s ease-in-out;
   border: 0;
   outline: 0;
+  margin-right: 10px;
 }
 
 #details-btn {
@@ -106,7 +125,7 @@ body {
   font-family: inherit;
   font-weight: 600;
   border-radius: 6px;
-  background-color: #dc3545;
+  background-color: #343a40;
   border: 0;
   outline: 0;
 }
@@ -116,9 +135,26 @@ body {
   height: 150px;
 }
 
+/*  details */
+
+#product-detail {
+  width: 60%;
+  margin: 0 auto;
+  background-color: #f8f7f5;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+#product-detail img {
+  height: 250px;
+  width: 250px;
+  margin: 0 auto;
+  display: block;
+}
+
 .cart {
   width: 350px;
-  /* border: 1px solid green; */
+  background-color: #f8f7f5;
   padding: 10px;
   box-shadow: 10px 10px 20px gray;
   border-radius: 5px;
@@ -126,9 +162,16 @@ body {
   position: fixed;
 }
 
+h1 {
+  text-align: center;
+}
+
 .cart-main {
   padding-right: 30px;
 }
+
+/* media query */
+
 @media only screen and (max-width: 768px) {
   #all-products {
     display: grid;
@@ -147,6 +190,7 @@ body {
     padding-right: 10px;
   }
 }
+
 @media only screen and (max-width: 468px) {
   #all-products {
     display: grid;

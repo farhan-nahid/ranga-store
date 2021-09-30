@@ -209,31 +209,69 @@ const loadProducts = () => {
   ];
   showProducts(data);
 };
+// hide details container
+document.getElementById("product-detail").style.display = "none";
 
 // show all product in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    console.log(product);
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `
-    <img class="product-image" src=${image} />
+    <img class="product-image" src=${image} alt='${product.title}' />
     <div class="card-body">
       <h4>${product.title}</h4>
       <p class="card-text">${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
+      <div class="flex-area">
+        <h6>Ratting:${product.rating.rate}</h6>
+        <h6>Total Ratting:${product.rating.count}</h6>
+      </div>
     </div>
     <div class="card-footer">
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn">Add to cart</button>
-      <button id="details-btn">Details</button>
+      <button id="details-btn" onClick="showDetails(${product.id})">Details</button>
     </div>
    
       `;
     document.getElementById("all-products").appendChild(div);
   }
 };
+
+// get details by id
+
+const showDetails = (id) => {
+  fetch(`https://fakestoreapi.com/products/${id}`)
+    .then((res) => res.json())
+    .then((data) => displayDetails(data));
+};
+
+// display details function
+
+const displayDetails = (product) => {
+  const { title, image, description } = product;
+  console.log(product);
+  const detailsDiv = document.getElementById("product-detail");
+  detailsDiv.style.display = "block";
+  detailsDiv.textContent = "";
+  const div = document.createElement("div");
+  div.innerHTML = `
+        <div class="modal__image">
+          <img src="${image}" alt="${title}" />
+        </div>
+        <div class="modal__content">
+          <h4>${title}</h4>  
+          <p>${description}</p>   
+        </div>
+  `;
+
+  detailsDiv.appendChild(div);
+};
+
+// add to cart function
+
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -245,46 +283,75 @@ const addToCart = (id, price) => {
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const converted = parseFloat(element);
   return converted;
 };
 
 // main price update function
+
 const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  document.getElementById(id).innerText = total.toFixed(2);
+  updateTotal();
 };
 
 // set innerText function
+
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
+  document.getElementById(id).innerText = parseFloat(value).toFixed(2);
+  updateTotal();
 };
 
 // update delivery charge and total Tax
+
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
+    updateTotal();
   }
   if (priceConverted > 400) {
     setInnerText("delivery-charge", 50);
     setInnerText("total-tax", priceConverted * 0.3);
+    updateTotal();
   }
   if (priceConverted > 500) {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
+    updateTotal();
   }
 };
 
 //grandTotal update function
+
 const updateTotal = () => {
   const grandTotal =
     getInputValue("price") +
     getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 loadProducts();
+
+// buy now button click
+
+document.getElementById("buy-now").addEventListener("click", () => {
+  setInnerText("total-Products", 0);
+  setInnerText("price", 0);
+  setInnerText("delivery-charge", 0);
+  setInnerText("total-tax", 0);
+  setInnerText("total", 0);
+  Swal.fire({
+    position: "middle",
+    icon: "success",
+    title: "Your Order is Placed",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+  setTimeout(() => {
+    location.reload();
+  }, 1500);
+});

@@ -209,13 +209,23 @@ const loadProducts = () => {
   ];
   showProducts(data);
 };
+
 // hide details container
 document.getElementById("product-detail").style.display = "none";
+document.getElementById("confirmation").style.display = "none";
 
 // show all product in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
+    // star
+    let star = "";
+    for (let i = 0; i < 5; i++) {
+      let iconClass =
+        i < product.rating.rate ? "fas fa-star fill" : "far fa-star unFill";
+      star += ` <i class='${iconClass}'></i> `;
+    }
+
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("card");
@@ -223,12 +233,10 @@ const showProducts = (products) => {
     <img class="product-image" src=${image} alt='${product.title}' />
     <div class="card-body">
       <h4>${product.title}</h4>
-      <p class="card-text">${product.category}</p>
+      <p class="card-text">Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
-      <div class="flex-area">
-        <h6>Ratting:${product.rating.rate}</h6>
-        <h6>Total Ratting:${product.rating.count}</h6>
-      </div>
+      <h6> ${star} ${product.rating.rate}</h6>
+      <h6>Total Rating: ${product.rating.count}</h6>
     </div>
     <div class="card-footer">
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn">Add to cart</button>
@@ -251,7 +259,7 @@ const showDetails = (id) => {
 // display details function
 
 const displayDetails = (product) => {
-  const { title, image, description } = product;
+  const { title, image, description, price } = product;
   console.log(product);
   const detailsDiv = document.getElementById("product-detail");
   detailsDiv.style.display = "block";
@@ -264,6 +272,7 @@ const displayDetails = (product) => {
         <div class="modal__content">
           <h4>${title}</h4>  
           <p>${description}</p>   
+          <h2>Price: $ ${price}</h2>
         </div>
   `;
 
@@ -332,18 +341,17 @@ const updateTotal = () => {
     getInputValue("price") +
     getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal.toFixed(2);
+  const total = document.getElementById("total");
+  total.innerText = grandTotal.toFixed(2);
+  if (Number(total.innerText) > 0) {
+    document.getElementById("buy-now").removeAttribute("disabled");
+  }
 };
 loadProducts();
 
 // buy now button click
 
 document.getElementById("buy-now").addEventListener("click", () => {
-  setInnerText("total-Products", 0);
-  setInnerText("price", 0);
-  setInnerText("delivery-charge", 0);
-  setInnerText("total-tax", 0);
-  setInnerText("total", 0);
   Swal.fire({
     position: "middle",
     icon: "success",
@@ -351,7 +359,14 @@ document.getElementById("buy-now").addEventListener("click", () => {
     showConfirmButton: false,
     timer: 1500,
   });
-  setTimeout(() => {
-    location.reload();
-  }, 1500);
+  const total = document.getElementById("total").innerText;
+  document.getElementById("total__cost").innerText = `Your Total Cost: ${total}$`
+  document.getElementById("main").style.display = "none";
+  document.getElementById("confirmation").style.display = "block";
 });
+
+// reload the page
+
+document.getElementById("title").addEventListener("click", () => {
+  location.reload()
+})

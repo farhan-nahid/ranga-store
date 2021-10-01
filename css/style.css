@@ -7,13 +7,48 @@
 }
 
 body {
+  background-image: repeating-linear-gradient(
+      135deg,
+      hsla(35, 0%, 71%, 0.09) 0px,
+      hsla(35, 0%, 71%, 0.09) 1px,
+      transparent 1px,
+      transparent 11px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      hsla(35, 0%, 71%, 0.09) 0px,
+      hsla(35, 0%, 71%, 0.09) 1px,
+      transparent 1px,
+      transparent 11px
+    ),
+    linear-gradient(90deg, hsl(183, 0%, 100%), hsl(183, 0%, 100%));
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
+}
+
+header {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f7f5;
+  padding: 10px;
+  height: 70px;
+}
+
+header h1 {
+  cursor: pointer;
+  margin: 0;
+  color: #2e86de;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* search bar */
 
 .products__search__container {
+  margin-top: 70px;
   width: 100%;
   max-width: 570px;
   margin: 100px auto 50px auto;
@@ -81,7 +116,7 @@ body {
 
 .card {
   border: 1px solid gray;
-  min-height: 420px;
+  min-height: 450px;
   padding: 20px;
   background-color: #f8f7f5;
   border-radius: 10px;
@@ -95,15 +130,10 @@ body {
   box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
 }
 
-.flex-area {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.flex-area h6 {
+.card h6 {
   font-weight: 600;
   font-size: 15px;
+  margin-bottom: 15px;
 }
 
 #addToCart-btn {
@@ -162,12 +192,46 @@ body {
   position: fixed;
 }
 
-h1 {
+.cart h1 {
   text-align: center;
+  color: #2e86de !important;
+  font-weight: 700 !important;
 }
 
 .cart-main {
   padding-right: 30px;
+}
+
+.fill {
+  color: #c0c00f;
+}
+
+.unFill {
+  color: grey;
+}
+
+/* confirmation css */
+
+#confirmation {
+  height: calc(100vh - 70px);
+}
+
+#confirmation img {
+  height: 500px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#confirmation h1 {
+  color: #28a745;
+  font-size: 50px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* media query */
@@ -179,7 +243,6 @@ h1 {
   }
   .cart {
     width: 300px;
-    /* border: 1px solid green; */
     padding: 10px;
     box-shadow: 10px 10px 20px gray;
     border-radius: 5px;
@@ -189,11 +252,19 @@ h1 {
   .cart-main {
     padding-right: 10px;
   }
+  #confirmation img {
+    height: 400px;
+    width: 400px;
+  }
 }
 
 @media only screen and (max-width: 468px) {
   #all-products {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+  }
+  #confirmation img {
+    height: 50vh;
+    width: 90%;
   }
 }

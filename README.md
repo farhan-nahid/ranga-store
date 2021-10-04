@@ -8,25 +8,25 @@
 
 ## Main UI
 
-<img src="https://i.ibb.co/QpKYx42/Farhan-s-Store-1.png" alt="Farhan-s-Store-1" border="0">
+<img src="https://i.ibb.co/nPgzNZY/Ranga-Store.png" alt="Ranga-Store" border="0">
 
 ---
 
 ## See Details
 
-<img src="https://i.ibb.co/41RS4BK/Farhan-s-Store-2.png" alt="Farhan-s-Store-2" border="0">
+<img src="https://i.ibb.co/nDWFWcX/Ranga-Store-1.png" alt="Ranga-Store-1" border="0">
 
 ---
 
 ## Place Order
 
-<img src="https://i.ibb.co/jyw6NkW/Farhan-s-Store.png" alt="Farhan-s-Store" border="0">
+<img src="https://i.ibb.co/68Ydjg0/Ranga-Store-2.png" alt="Ranga-Store-2" border="0">
 
 ---
 
-## [Live Link](https://farhan-store.netlify.app/)
+## [Live Link](https://ranga-store.vercel.app/)
 
-https://farhan-store.netlify.app/
+https://ranga-store.vercel.app/
 
 ---
 

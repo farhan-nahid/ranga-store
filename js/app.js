@@ -360,13 +360,15 @@ document.getElementById("buy-now").addEventListener("click", () => {
     timer: 1500,
   });
   const total = document.getElementById("total").innerText;
-  document.getElementById("total__cost").innerText = `Your Total Cost: ${total}$`
+  document.getElementById(
+    "total__cost"
+  ).innerText = `Your Total Cost: ${total}$`;
   document.getElementById("main").style.display = "none";
   document.getElementById("confirmation").style.display = "block";
+  
+  // reload the page
+
+  document.getElementById("title").addEventListener("click", () => {
+    location.reload();
+  });
 });
-
-// reload the page
-
-document.getElementById("title").addEventListener("click", () => {
-  location.reload()
-})
